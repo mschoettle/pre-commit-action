@@ -1,13 +1,9 @@
-this action is in maintenance-only mode and will not be accepting new features.
-
-generally you want to use [pre-commit.ci] which is faster and has more features.
-
-[pre-commit.ci]: https://pre-commit.ci
+This action is a fork of the [official `pre-commit` action](https://github.com/pre-commit/action).
+The only change is that it uses [`uv`](https://docs.astral.sh/uv/) to install `pre-commit`.
 
 ___
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/action/main.svg)](https://results.pre-commit.ci/latest/github/pre-commit/action/main)
-[![Build Status](https://github.com/pre-commit/action/actions/workflows/main.yml/badge.svg)](https://github.com/pre-commit/action/actions)
+[![.github/workflows/main.yml](https://github.com/mschoettle/pre-commit-action/actions/workflows/main.yml/badge.svg)](https://github.com/mschoettle/pre-commit-action/actions/workflows/main.yml)
 
 pre-commit/action
 =================
@@ -31,15 +27,15 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
-    - uses: pre-commit/action@v3.0.1
+    - uses: actions/checkout@v4
+    - uses: astral-sh/setup-uv@v5
+    - uses: mschoettle/pre-commit-action@v4.0.0
 ```
 
 This does a few things:
 
 - clones the code
-- installs python
+- installs `uv`
 - sets up the `pre-commit` cache
 
 ### using this action with custom invocations
@@ -51,7 +47,7 @@ Here's a sample step configuration that only runs the `flake8` hook against all
 the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v3.0.1
+    - uses: mschoettle/pre-commit-action@v4.0.0
       with:
         extra_args: flake8 --all-files
 ```

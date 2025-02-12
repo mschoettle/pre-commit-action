@@ -8,9 +8,9 @@ inputs:
 runs:
   using: composite
   steps:
-  - run: python -m pip install pre-commit
+  - run: uv pip install pre-commit
     shell: bash
-  - run: python -m pip freeze --local
+  - run: uv pip freeze
     shell: bash
   - uses: actions/cache@v4
     with:

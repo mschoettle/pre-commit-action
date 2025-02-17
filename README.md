@@ -1,5 +1,5 @@
 This action is a fork of the [official `pre-commit` action](https://github.com/pre-commit/action).
-The only change is that it uses [`uv`](https://docs.astral.sh/uv/) to install `pre-commit`.
+The only change is that it uses [`uv`](https://docs.astral.sh/uv/) to install `pre-commit` (using [uvx](https://docs.astral.sh/uv/guides/tools/#running-tools)).
 
 ___
 
@@ -29,7 +29,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: astral-sh/setup-uv@v5
-    - uses: mschoettle/pre-commit-action@v4.0.0
+    - uses: mschoettle/pre-commit-action@v4.0.2
 ```
 
 This does a few things:
@@ -47,7 +47,7 @@ Here's a sample step configuration that only runs the `flake8` hook against all
 the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: mschoettle/pre-commit-action@v4.0.0
+    - uses: mschoettle/pre-commit-action@v4.0.2
       with:
         extra_args: flake8 --all-files
 ```

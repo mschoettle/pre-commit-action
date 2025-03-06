@@ -8,7 +8,7 @@ inputs:
 runs:
   using: composite
   steps:
-  - run: echo "pythonVersion=$(python -c 'import platform; print(platform.python_version());')" >> "$GITHUB_ENV"
+  - run: echo "pythonVersion=$(python -c 'import platform; print(platform.python_version());')" >> "$GITHUB_ENV" # zizmor: ignore[github-env]
     shell: bash
   - uses: actions/cache@v4
     with:
@@ -30,5 +30,7 @@ runs:
         pip install pre-commit
       fi
       echo "Running pre-commit with: ${UV_PREFIX} pre-commit"
-      $UV_PREFIX pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
+      $UV_PREFIX pre-commit run --show-diff-on-failure --color=always $EXTRA_ARGS
     shell: bash
+    env:
+      EXTRA_ARGS: ${{ inputs.extra_args }}

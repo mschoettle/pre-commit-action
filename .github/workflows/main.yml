@@ -6,6 +6,15 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+    - name: self test action
+      uses: ./
+  
+  # Simulate a venv with pre-commit already installed
+  main-uv:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
@@ -21,5 +30,22 @@ jobs:
       run: |
         uv venv
         uv pip install pre-commit
+    - name: self test action
+      uses: ./
+
+  # Simulate pre-commit not installed, install with uvx
+  main-uvx:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install uv with Python ${{ matrix.python-version }}
+      uses: astral-sh/setup-uv@v5
+      with:
+          python-version: ${{ matrix.python-version }}
+    - name: Install Python ${{ matrix.python-version }}
+      run: uv python install
     - name: self test action
       uses: ./

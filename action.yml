@@ -9,6 +9,7 @@ runs:
   using: composite
   steps:
   - run: echo "pythonLocation=$(which python)" >> "$GITHUB_ENV"
+    shell: bash
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit

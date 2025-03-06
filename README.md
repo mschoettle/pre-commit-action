@@ -38,6 +38,9 @@ This does a few things:
 - installs `uv`
 - sets up the `pre-commit` cache
 
+By default, `pre-commit` is installed and invoked with `uvx`.
+If it detects that `pre-commit` is already installed (for example, in a venv), `uv run` is used instead.
+
 ### using this action with custom invocations
 
 By default, this action runs all the hooks against all the files.  `extra_args`

@@ -17,5 +17,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
     - name: Install Python ${{ matrix.python-version }}
       run: uv python install
+    - name: Install pre-commit
+      run: |
+        uv venv
+        uv pip install pre-commit
     - name: self test action
       uses: ./

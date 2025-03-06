@@ -11,7 +11,7 @@ jobs:
     - uses: actions/setup-python@v5
     - name: self test action
       uses: ./
-  
+
   # Simulate a venv with pre-commit already installed
   main-uv:
     runs-on: ubuntu-latest

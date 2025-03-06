@@ -15,6 +15,16 @@ runs:
       path: ~/.cache/pre-commit
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
   - run: |
+      UV_PREFIX=
+      if [[ command -v uv ]]; then
+        if [[ command -v pre-commit ]]; then
+          UV_PREFIX="uv run"
+        else
+          UV_PREFIX="uvx"
+        fi
+      else
+        pip install pre-commit
+      fi
       which pre-commit || uv tool install pre-commit
-      uv run pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
+      $UV_PREFIX pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
     shell: bash

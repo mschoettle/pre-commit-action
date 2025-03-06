@@ -8,9 +8,12 @@ inputs:
 runs:
   using: composite
   steps:
+  - run: echo "pythonLocation=$(which python)" >> "$GITHUB_ENV"
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
-  - run: uvx pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
+  - run: |
+    which pre-commit
+    uv run pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
     shell: bash

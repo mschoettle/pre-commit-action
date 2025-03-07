@@ -19,7 +19,8 @@ runs:
       if command -v uv; then
         echo "uv is installed"
         if command -v pre-commit; then
-          echo "pre-commit installed"
+          echo "pre-commit installed, assuming a venv is created"
+          source .venv/bin/activate
           UV_PREFIX="uv run"
         else
           echo "pre-commit not installed"

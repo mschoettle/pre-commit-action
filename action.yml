@@ -18,9 +18,10 @@ runs:
       UV_PREFIX=
       if command -v uv; then
         echo "uv is installed"
+        # attempt to activate virtual environment if it exists
+        source .venv/bin/activate || true
         if command -v pre-commit; then
-          echo "pre-commit installed, assuming a venv is created"
-          source .venv/bin/activate
+          echo "pre-commit installed"
           UV_PREFIX="uv run"
         else
           echo "pre-commit not installed"

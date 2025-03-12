@@ -9,13 +9,14 @@ runs:
   using: composite
   steps:
   - run: |
-      echo "pythonVersion=$(python -c 'import platform; print(platform.python_version());')" >> "$GITHUB_ENV" # zizmor: ignore[github-env]
-      echo "pythonMachine=$(python -c 'import platform; print(platform.machine());')" >> "$GITHUB_ENV" # zizmor: ignore[github-env]
+      echo "pythonVersion=$(python -c 'import platform; print(platform.python_version());')" >> "$GITHUB_OUTPUT"
+      echo "pythonMachine=$(python -c 'import platform; print(platform.machine());')" >> "$GITHUB_OUTPUT"
     shell: bash
+    id: prepare
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
-      key: pre-commit-3|${{ env.pythonVersion }}-${{ env.pythonMachine }}|${{ hashFiles('.pre-commit-config.yaml') }}
+      key: pre-commit-3|${{ steps.prepare.outputs.pythonVersion }}-${{ steps.prepare.outputs.pythonMachine }}|${{ hashFiles('.pre-commit-config.yaml') }}
   - run: |
       UV_PREFIX=
       if command -v uv; then

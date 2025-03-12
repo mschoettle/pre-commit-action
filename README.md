@@ -39,7 +39,8 @@ This does a few things:
 - sets up the `pre-commit` cache
 
 By default, `pre-commit` is installed and invoked with `uvx`.
-If it detects that `pre-commit` is already installed (for example, in a venv), `uv run` is used instead.
+If it detects that `uv.lock` exists, `uv run --no-sync` is used instead.
+In that case, it is expected that you 
 
 ### using this action with custom invocations
 

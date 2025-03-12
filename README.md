@@ -29,7 +29,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: astral-sh/setup-uv@v5
-    - uses: mschoettle/pre-commit-action@v4.0.2
+    - uses: mschoettle/pre-commit-action@v4.2.0
 ```
 
 This does a few things:
@@ -51,7 +51,7 @@ Here's a sample step configuration that only runs the `flake8` hook against all
 the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: mschoettle/pre-commit-action@v4.0.2
+    - uses: mschoettle/pre-commit-action@v4.2.0
       with:
         extra_args: flake8 --all-files
 ```

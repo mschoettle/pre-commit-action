@@ -39,8 +39,8 @@ jobs:
       run: uv python install
     - name: Install pre-commit
       run: |
-        uv venv
-        uv pip install pre-commit
+        uv init
+        uv add pre-commit
     - name: self test action
       uses: ./
 

@@ -8,23 +8,26 @@ inputs:
 runs:
   using: composite
   steps:
-  - run: echo "pythonVersion=$(python -c 'import platform; print(platform.python_version());')" >> "$GITHUB_ENV" # zizmor: ignore[github-env]
+  - run: |
+      echo "pythonVersion=$(python -c 'import platform; print(platform.python_version());')" >> "$GITHUB_OUTPUT"
+      echo "pythonMachine=$(python -c 'import platform; print(platform.machine());')" >> "$GITHUB_OUTPUT"
     shell: bash
+    id: prepare
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
-      key: pre-commit-3|${{ env.pythonVersion }}|${{ hashFiles('.pre-commit-config.yaml') }}
+      key: pre-commit-3|${{ steps.prepare.outputs.pythonVersion }}-${{ steps.prepare.outputs.pythonMachine }}|${{ hashFiles('.pre-commit-config.yaml') }}
   - run: |
       UV_PREFIX=
       if command -v uv; then
         echo "uv is installed"
         # attempt to activate virtual environment if it exists
         source .venv/bin/activate || true
-        if command -v pre-commit; then
-          echo "pre-commit installed"
-          UV_PREFIX="uv run"
+        if command -v uv.lock; then
+          echo "using uv run"
+          UV_PREFIX="uv run --no-sync"
         else
-          echo "pre-commit not installed"
+          echo "using uvx"
           UV_PREFIX="uvx"
         fi
       else

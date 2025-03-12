@@ -40,7 +40,7 @@ This does a few things:
 
 By default, `pre-commit` is installed and invoked with `uvx`.
 If it detects that `uv.lock` exists, `uv run --no-sync` is used instead.
-In that case, it is expected that you 
+In that case, it is expected that you ensure that `pre-commit` is installed in the virtual environment.
 
 ### using this action with custom invocations
 

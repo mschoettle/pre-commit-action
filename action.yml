@@ -21,9 +21,7 @@ runs:
       UV_PREFIX=
       if command -v uv; then
         echo "uv is installed"
-        # attempt to activate virtual environment if it exists
-        source .venv/bin/activate || true
-        if command -v uv.lock; then
+        if [[ -f uv.lock ]]; then
           echo "using uv run"
           UV_PREFIX="uv run --no-sync"
         else

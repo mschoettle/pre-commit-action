@@ -23,7 +23,7 @@ runs:
         echo "uv is installed"
         if [[ -f uv.lock ]]; then
           echo "using uv run"
-          UV_PREFIX="uv run"
+          UV_PREFIX="uv run --no-sync"
         else
           echo "using uvx"
           UV_PREFIX="uvx"
